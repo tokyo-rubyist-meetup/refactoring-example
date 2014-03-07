@@ -1,4 +1,4 @@
-require_relative 'refactoring_example'
+require_relative 'correct_answer_behavior'
 
 require 'fileutils'
 module FixtureHandler
@@ -45,6 +45,12 @@ module StdOutToStringRedirector
 end
 
 SIMULATIONS_COUNT = 5000
+
+def run_simulation index = nil
+  result = CorrectAnswerBehavior.new(index).was_correctly_answered
+  puts "result was #{result}"
+end
+
 def capture_simulation_output index
   StdOutToStringRedirector.redirect_stdout_to_string do
     run_simulation(index)

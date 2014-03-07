@@ -45,8 +45,3 @@ public
     @is_getting_out_of_penalty_box = @in_penalty_box[@current_player] && rand(2) == 0
   end
 end
-
-def run_simulation index = nil
-  result = CorrectAnswerBehavior.new(index).was_correctly_answered
-  puts "result was #{result}"
-end
