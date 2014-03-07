@@ -74,8 +74,15 @@ rescue RuntimeError => e
   puts e.message
 end
 
-require "minitest"
-class TestOutput < Minitest::Test
+minitest_class = nil
+begin
+  require "minitest"
+  minitest_class = Minitest::Test
+rescue LoadError
+  require "minitest/unit"
+  minitest_class =  MiniTest::Unit::TestCase
+end
+class TestOutput < minitest_class
   def test_output
     SIMULATIONS_COUNT.times do |index|
       raise "You need to record simulation results first!" unless FixtureHandler.fixture_exists?(index)
