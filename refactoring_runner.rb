@@ -78,9 +78,15 @@ minitest_class = nil
 begin
   require "minitest"
   minitest_class = Minitest::Test
+  def run_minitest
+    Minitest.run
+  end
 rescue LoadError
   require "minitest/unit"
   minitest_class =  MiniTest::Unit::TestCase
+  def run_minitest
+    MiniTest::Unit.new.run []
+  end
 end
 class TestOutput < minitest_class
   def test_output
@@ -109,7 +115,7 @@ when "-c", "--clean", "clean"
 when "-r", "--record", "record"
   record_fixtures
 when "-t", "--test", "test"
-  Minitest.run
+  run_minitest
 when /\d(.\d+)?/
   run_simulation ARGV[0].to_f
 else
