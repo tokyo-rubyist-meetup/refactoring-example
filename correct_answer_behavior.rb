@@ -1,5 +1,5 @@
 class CorrectAnswerBehavior
-  def initialize seed = nil
+  def initialize(seed = nil)
     srand(seed) if seed
     @players = %w[Alice Bob Cecil]
     @purses = @players.map { rand(3) + 5 }
