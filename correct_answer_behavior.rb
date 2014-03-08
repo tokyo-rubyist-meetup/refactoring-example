@@ -11,29 +11,33 @@ class CorrectAnswerBehavior
   def was_correctly_answered
     if @in_penalty_box[@current_player]
       if @is_getting_out_of_penalty_box
-        puts "#{@players[@current_player]} got out of penalty box"
+        puts "#{current_player} got out of penalty box"
         puts 'Answer was correct!!!!'
         @purses[@current_player] += 1
-        puts "#{@players[@current_player]} now has #{@purses[@current_player]} Gold Coins."
+        puts "#{current_player} now has #{@purses[@current_player]} Gold Coins."
         winner = did_player_win()
         change_current_player!
-        puts "Player is now #{@players[@current_player]}"
+        puts "Player is now #{current_player}"
         winner
       else
-        puts "#{@players[@current_player]} stays in penalty box"
+        puts "#{current_player} stays in penalty box"
         change_current_player!
-        puts "Player is now #{@players[@current_player]}"
+        puts "Player is now #{current_player}"
         true
       end
     else
       puts "Answer was correct!!!!"
       @purses[@current_player] += 1
-      puts "#{@players[@current_player]} now has #{@purses[@current_player]} Gold Coins."
+      puts "#{current_player} now has #{@purses[@current_player]} Gold Coins."
       winner = did_player_win
       change_current_player!
-      puts "Player is now #{@players[@current_player]}"
+      puts "Player is now #{current_player}"
       return winner
     end
+  end
+
+  def current_player
+    @players[@current_player]
   end
 
   def change_current_player!
