@@ -16,14 +16,12 @@ class CorrectAnswerBehavior
         @purses[@current_player] += 1
         puts "#{@players[@current_player]} now has #{@purses[@current_player]} Gold Coins."
         winner = did_player_win()
-        @current_player += 1
-        @current_player = 0 if @current_player == @players.length
+        change_current_player!
         puts "Player is now #{@players[@current_player]}"
         winner
       else
         puts "#{@players[@current_player]} stays in penalty box"
-        @current_player += 1
-        @current_player = 0 if @current_player == @players.length
+        change_current_player!
         puts "Player is now #{@players[@current_player]}"
         true
       end
@@ -32,11 +30,15 @@ class CorrectAnswerBehavior
       @purses[@current_player] += 1
       puts "#{@players[@current_player]} now has #{@purses[@current_player]} Gold Coins."
       winner = did_player_win
-      @current_player += 1
-      @current_player = 0 if @current_player == @players.length
+      change_current_player!
       puts "Player is now #{@players[@current_player]}"
       return winner
     end
+  end
+
+  def change_current_player!
+    @current_player += 1
+    @current_player = 0 if @current_player == @players.length
   end
 
   private
