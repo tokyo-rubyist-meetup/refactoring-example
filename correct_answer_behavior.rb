@@ -5,6 +5,10 @@ class Player
     @name = name
     @purses = purses
   end
+
+  def reward!
+    @purses += 1
+  end
 end
 
 class CorrectAnswerBehavior
@@ -21,7 +25,7 @@ class CorrectAnswerBehavior
       if @is_getting_out_of_penalty_box
         puts "#{current_player.name} got out of penalty box"
         puts 'Answer was correct!!!!'
-        current_player.purses += 1
+        current_player.reward!
         puts "#{current_player.name} now has #{current_player.purses} Gold Coins."
         winner = did_player_win()
         change_current_player!
@@ -35,7 +39,7 @@ class CorrectAnswerBehavior
       end
     else
       puts "Answer was correct!!!!"
-      current_player.purses += 1
+      current_player.reward!
       puts "#{current_player.name} now has #{current_player.purses} Gold Coins."
       winner = did_player_win
       change_current_player!
