@@ -4,35 +4,35 @@ class CorrectAnswerBehavior
     if @in_penalty_box[@current_player]
       if @is_getting_out_of_penalty_box
         puts "#{@players[@current_player]} got out of penalty box"
-        puts 'Answer was correct!!!!'
-        @purses[@current_player] += 1
-        puts "#{@players[@current_player]} now has #{@purses[@current_player]} Gold Coins."
+        show_message
         winner = did_player_win()
-        @current_player += 1
-        @current_player = 0 if @current_player == @players.length
-        puts "Player is now #{@players[@current_player]}"
+        show_current_player
         winner
       else
         puts "#{@players[@current_player]} stays in penalty box"
-        @current_player += 1
-        @current_player = 0 if @current_player == @players.length
-        puts "Player is now #{@players[@current_player]}"
+        show_current_player
         true
       end
     else
-      puts "Answer was correct!!!!"
-      @purses[@current_player] += 1
-      puts "#{@players[@current_player]} now has #{@purses[@current_player]} Gold Coins."
+      show_message
       winner = did_player_win
-      @current_player += 1
-      @current_player = 0 if @current_player == @players.length
-      puts "Player is now #{@players[@current_player]}"
+      show_current_player
       return winner
     end
   end
 private
   def did_player_win
     !(@purses[@current_player] == 6)
+  end
+  def show_message
+     puts "Answer was correct!!!!"
+      @purses[@current_player] += 1
+      puts "#{@players[@current_player]} now has #{@purses[@current_player]} Gold Coins."
+  end
+  def show_current_player
+    @current_player += 1
+    @current_player = 0 if @current_player == @players.length
+    puts "Player is now #{@players[@current_player]}"
   end
 
 public
