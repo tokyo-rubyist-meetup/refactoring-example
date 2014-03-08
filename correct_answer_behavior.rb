@@ -1,15 +1,16 @@
 class Player
-  attr_reader :name
-  def initialize(name)
+  attr_reader :name, :purses
+  attr_writer :purses
+  def initialize(name, purses)
     @name = name
+    @purses = purses
   end
 end
 
 class CorrectAnswerBehavior
   def initialize(seed = nil)
     srand(seed) if seed
-    @players = %w[Alice Bob Cecil].map {|name| Player.new(name) }
-    @purses = @players.map { rand(3) + 5 }
+    @players = %w[Alice Bob Cecil].map {|name| Player.new(name, (rand(3) + 5)) }
     @in_penalty_box = @players.map { rand(2) == 0 }
     @current_player_index = rand(@players.count)
     @is_getting_out_of_penalty_box = @in_penalty_box[@current_player_index] && rand(2) == 0
@@ -20,8 +21,8 @@ class CorrectAnswerBehavior
       if @is_getting_out_of_penalty_box
         puts "#{current_player.name} got out of penalty box"
         puts 'Answer was correct!!!!'
-        @purses[@current_player_index] += 1
-        puts "#{current_player.name} now has #{@purses[@current_player_index]} Gold Coins."
+        current_player.purses += 1
+        puts "#{current_player.name} now has #{current_player.purses} Gold Coins."
         winner = did_player_win()
         change_current_player!
         puts "Player is now #{current_player.name}"
@@ -34,8 +35,8 @@ class CorrectAnswerBehavior
       end
     else
       puts "Answer was correct!!!!"
-      @purses[@current_player_index] += 1
-      puts "#{current_player.name} now has #{@purses[@current_player_index]} Gold Coins."
+      current_player.purses += 1
+      puts "#{current_player.name} now has #{current_player.purses} Gold Coins."
       winner = did_player_win
       change_current_player!
       puts "Player is now #{current_player.name}"
@@ -55,6 +56,6 @@ class CorrectAnswerBehavior
   private
 
   def did_player_win
-    !(@purses[@current_player_index] == 6)
+    !(current_player.purses == 6)
   end
 end
